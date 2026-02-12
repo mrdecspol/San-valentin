@@ -76,20 +76,80 @@ button {
     z-index: 10;
 }
 
+.valentine-card {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background-color: #b71c1c; /* Este será el fondo interno del sobre */
+    border-radius: 0 0 10px 10px;
+    /* Importante: para que la carta no se vea por debajo antes de salir */
+    overflow: visible; 
+}
+
+/* EL CONTENEDOR (Parte trasera del sobre) */
+.valentine-card {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background-color: #b71c1c; /* Rojo oscuro (interior) */
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+/* LA CARTA (Oculta al inicio) */
 .card {
     position: absolute;
     background-color: white;
-    width: 90%;
-    height: 150px;
-    bottom: 10px;
-    left: 5%;
+    width: 280px;
+    height: 170px;
+    bottom: 5px;
     padding: 20px;
-    transition: transform 0.6s ease;
-    z-index: 5;
+    box-sizing: border-box;
+    text-align: center;
+    transition: transform 0.6s ease, z-index 0.6s;
+    z-index: 2; /* Por debajo del frente */
+    border-radius: 5px;
 }
+
+/* EL FRENTE DEL SOBRE (Lo que cubre la carta) */
+.valentine-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 300px;
+    height: 100px; /* Cubre la mitad inferior */
+    background-color: #d63031; /* Rojo brillante */
+    border-radius: 0 0 10px 10px;
+    z-index: 10; /* Por encima de la carta */
+}
+
+/* LA SOLAPA (El triángulo superior) */
+.envelope::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 110px solid #d63031;
+    z-index: 11; /* Por encima de todo */
+    transition: transform 0.5s ease;
+    transform-origin: top;
+}
+
+/* --- ANIMACIÓN --- */
 
 .valentine-card:hover .card {
     transform: translateY(-130px);
+    z-index: 15; /* Sube y se pone al frente */
+}
+
+.valentine-card:hover .envelope::before {
+    transform: rotateX(180deg); /* La solapa se abre */
+    z-index: 1; /* Al abrirse, ya no estorba */
 }
 
 /* --- ANIMACIÓN DE CORAZONES --- */
@@ -118,4 +178,14 @@ button {
     0% { transform: translateY(0) rotate(-45deg) scale(0); opacity: 0; }
     50% { opacity: 1; }
     100% { transform: translateY(-400px) rotate(-45deg) scale(1.5); opacity: 0; }
+}
+
+#btnSi {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); box-shadow: 0 0 20px #4CAF50; }
+    100% { transform: scale(1); }
 }
