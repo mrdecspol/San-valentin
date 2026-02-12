@@ -6,9 +6,16 @@
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Usa min-height en lugar de height */
+    margin: 0;
     background-color: #fab1a0;
-    font-family: 'Arial', sans-serif;
-    overflow: hidden; /* Evita que aparezcan barras de scroll cuando el botón huye */
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; /* Evita el movimiento lateral */
+    overflow-y: auto;   /* Permite bajar y subir si el contenido crece */
 }
 
 .main-container {
@@ -99,18 +106,10 @@ button {
 }
 
 /* LA CARTA (Oculta al inicio) */
-.card {
-    position: absolute;
-    background-color: white;
-    width: 280px;
-    height: 170px;
-    bottom: 5px;
-    padding: 20px;
-    box-sizing: border-box;
-    text-align: center;
-    transition: transform 0.6s ease, z-index 0.6s;
-    z-index: 2; /* Por debajo del frente */
-    border-radius: 5px;
+.card p {
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: bold;
 }
 
 /* EL FRENTE DEL SOBRE (Lo que cubre la carta) */
