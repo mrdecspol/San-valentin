@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sanvalentin.css">
+    <title>Pregunta Importante</title>
+</head>
+<body>
+
+    <div class="main-container">
+        <div id="interfaz-pregunta">
+            <h1 id="pregunta">¿Quieres ser mi san valentin?</h1>
+            <div class="botones">
+                <button id="btnSi" onclick="aceptar()">Sí</button>
+                <button id="btnNo" onmouseover="crecerPregunta()">No</button>
+            </div>
+        </div>
+
+        <div id="sobre-regalo" style="display: none;">
+            <div class="valentine-card">
+                <div class="hearts-container" id="hearts-container"></div>
+                <div class="envelope"></div>
+                <div class="card">
+                    <h3>¡Sabía que dirías que sí! ❤️</h3>
+                    <p>Eres la persona más especial. ¡Feliz San Valentín!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let tamanoActual = 24;
+
+        function crecerPregunta() {
+            tamanoActual += 15;
+            document.getElementById('pregunta').style.fontSize = tamanoActual + 'px';
+            
+            const btnNo = document.getElementById('btnNo');
+            // Cálculo para que el botón no se salga de la pantalla
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight);
+            
+            btnNo.style.position = 'fixed'; // Fixed para que ignore contenedores y escape por toda la pantalla
+            btnNo.style.left = x + 'px';
+            btnNo.style.top = y + 'px';
+        }
+
+        function aceptar() {
+            document.getElementById('interfaz-pregunta').style.display = 'none';
+            document.getElementById('sobre-regalo').style.display = 'block';
+            generarCorazones();
+        }
+
+        function generarCorazones() {
+            const container = document.getElementById('hearts-container');
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(heart);
+            }
+        }
+    </script>
+</body>
+</html>
